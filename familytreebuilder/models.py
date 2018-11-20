@@ -5,9 +5,9 @@ from django.utils import timezone
 
 
 class User(models.Model):
-    login = models.CharField(max_length=40, null=False, help_text='Login')
-    password = models.CharField(max_length=40, null=False, help_text='Hasło')
-    last_update = models.DateTimeField(null=False)
+    login = models.CharField(max_length=40, blank=True, unique=True)
+    password = models.CharField(max_length=40, blank=True, verbose_name='Hasło')
+    last_update = models.DateTimeField(default=timezone.now())
 
     def update(self):
         self.last_update = timezone.now()
@@ -23,9 +23,9 @@ class User(models.Model):
 
 class Family(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, help_text='Nazwa drzewa')
+    name = models.CharField(max_length=200, help_text='Nazwa drzewa', null=True)
     size = models.PositiveSmallIntegerField(default=0)
-    photo_path = models.FilePathField(path='/home/familytreebuilder/', recursive=True)
+    photo_path = models.FilePathField(path='/home/familytreebuilder/', recursive=True, null=True)
     last_update = models.DateTimeField(null=False)
 
     def update(self):
@@ -50,13 +50,13 @@ class Family(models.Model):
 
 class Member(models.Model):
     family = models.ForeignKey(Family, on_delete=models.CASCADE)
-    name = models.CharField(max_length=40, help_text='Imiona')
-    last_name = models.CharField(max_length=40, help_text='Nazwisko')
-    birth_date = models.DateField(help_text='Datę narodzin')
-    death_date = models.DateField(help_text='Datę śmierci')
-    alive = models.BooleanField(help_text='Nieżyje?')
-    phone_number = models.CharField(max_length=15, help_text='Numer telefonu')
-    photo_path = models.FilePathField(path='/home/familytreebuilder/', recursive=True)
+    name = models.CharField(max_length=40, help_text='Imiona', null=True)
+    last_name = models.CharField(max_length=40, help_text='Nazwisko', null=True)
+    birth_date = models.DateField(help_text='Datę narodzin', null=True)
+    death_date = models.DateField(help_text='Datę śmierci', null=True)
+    alive = models.BooleanField(help_text='Nieżyje?', null=True)
+    phone_number = models.CharField(max_length=15, help_text='Numer telefonu', null=True)
+    photo_path = models.FilePathField(path='/home/familytreebuilder/', recursive=True, null=True)
     last_update = models.DateTimeField(null=False)
 
     def update(self):
@@ -97,9 +97,9 @@ class Member(models.Model):
 
 class Address(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    address = models.CharField(max_length=50, help_text='Adres')
-    zip_code = models.CharField(max_length=10,  help_text='Kod pocztowy')
-    city = models.CharField(max_length=40, help_text='Miasto')
+    address = models.CharField(max_length=50, help_text='Adres', null=True)
+    zip_code = models.CharField(max_length=10,  help_text='Kod pocztowy', null=True)
+    city = models.CharField(max_length=40, help_text='Miasto', null=True)
     last_update = models.DateTimeField(null=False)
 
     def update(self):
