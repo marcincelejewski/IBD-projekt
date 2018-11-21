@@ -1,0 +1,12 @@
+{% extends 'familytreebuilder/base.html' %}
+
+{% block title %}Logowanie{% endblock %}
+
+{% block content %}
+  <form method="post" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Zaloguj się</button>
+    <p><a href="{% url 'password_reset' %}">Zmień hasło</a></p>
+  </form>
+{% endblock %}

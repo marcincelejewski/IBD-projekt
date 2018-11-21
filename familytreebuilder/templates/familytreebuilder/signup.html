@@ -1,9 +1,12 @@
 {% extends 'familytreebuilder/base.html' %}
 
+{% block title %}Rejestracja{% endblock %}
+
 {% block content %}
+  <h2>Rejestracja</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form }}
-    <button type="submit" class="btn btn-success">Sign Up</button>
+    {{ form.as_p }}
+    <button type="submit">Zarejestruj</button>
   </form>
 {% endblock %}

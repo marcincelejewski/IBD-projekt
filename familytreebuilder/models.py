@@ -1,35 +1,31 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
-
 # Create your models here.
 
 
-class User(models.Model):
-    login = models.CharField(max_length=40, blank=True, unique=True)
-    password = models.CharField(max_length=40, blank=True, verbose_name='Hasło')
-    last_update = models.DateTimeField(default=timezone.now())
+class CustomUser(AbstractUser):
+    username = models.CharField(max_length=40, blank=True, unique=True)
+    email = models.CharField(max_length=40, blank=True, unique=True)
+    last_update = models.DateTimeField(null=False, default=timezone.now)
 
     def update(self):
-        self.last_update = timezone.now()
+        self.last_update = timezone.now
         self.save()
 
-    def set_password(self, new_pass):
-        self.password = new_pass
-        self.update()
-
     def __str__(self):
-        return self.login
+        return self.email
 
 
 class Family(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user
     name = models.CharField(max_length=200, help_text='Nazwa drzewa', null=True)
     size = models.PositiveSmallIntegerField(default=0)
     photo_path = models.FilePathField(path='/home/familytreebuilder/', recursive=True, null=True)
-    last_update = models.DateTimeField(null=False)
+    last_update = models.DateTimeField(null=False, default=timezone.now)
 
     def update(self):
-        self.last_update = timezone.now()
+        self.last_update = timezone.now
         self.save()
 
     def inc_size(self):
@@ -57,10 +53,10 @@ class Member(models.Model):
     alive = models.BooleanField(help_text='Nieżyje?', null=True)
     phone_number = models.CharField(max_length=15, help_text='Numer telefonu', null=True)
     photo_path = models.FilePathField(path='/home/familytreebuilder/', recursive=True, null=True)
-    last_update = models.DateTimeField(null=False)
+    last_update = models.DateTimeField(null=False, default=timezone.now)
 
     def update(self):
-        self.last_update = timezone.now()
+        self.last_update = timezone.now
         self.save()
 
     def set_name(self, new_name):
@@ -100,10 +96,10 @@ class Address(models.Model):
     address = models.CharField(max_length=50, help_text='Adres', null=True)
     zip_code = models.CharField(max_length=10,  help_text='Kod pocztowy', null=True)
     city = models.CharField(max_length=40, help_text='Miasto', null=True)
-    last_update = models.DateTimeField(null=False)
+    last_update = models.DateTimeField(null=False, default=timezone.now)
 
     def update(self):
-        self.last_update = timezone.now()
+        self.last_update = timezone.now
         self.save()
 
     def set_address(self, new_address):
@@ -123,7 +119,9 @@ class Address(models.Model):
 
 class Parent(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    last_update = models.DateTimeField(null=False, default=timezone.now)
 
 
 class Spouse(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
+    last_update = models.DateTimeField(null=False, default=timezone.now)
