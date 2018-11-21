@@ -9,7 +9,8 @@
   <p><a href="{% url 'password_reset' %}">Zmień hasło</a></p>
 {% else %}
   <p>Nie jesteś zalogowany!</p>
-  <a href="{% url 'login' %}">Zaloguj</a>
-  <a href="{% url 'signup' %}">Rejestracja</a>
+  <a href="{% url 'login' %}" class="btn btn-primary active" role="button" aria-pressed="true">Logowanie</a>
+  <a href="{% url 'signup' %}" class="btn btn-primary active" role="button" aria-pressed="true">Rejestracja</a>
+
 {% endif %}
 {% endblock %}
