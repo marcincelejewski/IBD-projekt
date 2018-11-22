@@ -1,12 +1,19 @@
 {% extends 'familytreebuilder/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}Rejestracja{% endblock %}
 
 {% block content %}
-  <h2>Rejestracja</h2>
+
+<div class="row justify-content-center">
+  <div class="col-6">
+  <h3>Rejestracja</h3>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Zarejestruj</button>
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Zarejestruj</button>
   </form>
+</div>
+</div>
 {% endblock %}

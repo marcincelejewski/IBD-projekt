@@ -5,8 +5,8 @@ from django.utils import timezone
 
 
 class CustomUser(AbstractUser):
-    username = models.CharField(max_length=40, blank=True, unique=True)
-    email = models.CharField(max_length=40, blank=True, unique=True)
+    username = models.CharField(max_length=40, unique=True, verbose_name="Login")
+    email = models.EmailField()
     last_update = models.DateTimeField(null=False, default=timezone.now)
 
     def update(self):
@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
 
 
 class Family(models.Model):
-    # user
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, help_text='Nazwa drzewa', null=True)
     size = models.PositiveSmallIntegerField(default=0)
     photo_path = models.FilePathField(path='/home/familytreebuilder/', recursive=True, null=True)
