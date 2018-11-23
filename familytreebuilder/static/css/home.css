@@ -1,0 +1,36 @@
+.page-header{
+background-color: #90ee90;
+padding: 20px 20px 20px 20px;
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+}
+
+.page-header-items{
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+}
+
+.mt-2{
+font-family: 'Lobster';
+}
+
+.btn-info{
+margin-left: 5px;
+}
+
+.border {
+    background-color: #f0f8ff;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+img {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}

@@ -1,16 +1,56 @@
 {% extends 'familytreebuilder/base.html' %}
 
-{% block title %}Family Tree Builder{% endblock %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block script %}
+<link rel="stylesheet" href="{%  static 'css/home.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
-  Witaj {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Wyloguj</a></p>
-  <p><a href="{% url 'password_reset' %}">Zmień hasło</a></p>
-{% else %}
-  <p>Nie jesteś zalogowany!</p>
-  <a href="{% url 'login' %}" class="btn btn-primary active" role="button" aria-pressed="true">Logowanie</a>
-  <a href="{% url 'signup' %}" class="btn btn-primary active" role="button" aria-pressed="true">Rejestracja</a>
 
+
+<div class="page-header">
+    <h2 class="mt-2">Family Tree Builder</h2>
+    <div class="page-header-items">
+        <h5>Witaj {{ user.username }}!</h5>
+        <a href="{% url 'password_reset' %}" class="btn btn-info">
+            <span class="fas fa-cog"></span>
+        </a>
+        <a href="{% url 'logout' %}" class="btn btn-info">
+            <span class="fas fa-power-off"></span>
+        </a>
+    </div>
+</div>
+
+
+<div class="container">
+    {% if num_family < 1 %}
+        <h4>Tu pokaże się lista drzew stworzonych przez Ciebie!</h4>
+    {% else %}
+    {% for family in family_list %}
+    <div class="border">
+        <img id="currentPhoto" src= {{ family.photo }} class="img-rounded"  onerror="this.src = 'static/images/no-img.png'" height="200">
+        <h3> {{ family }}</h3>
+    </div>
+
+
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% else %}
+<div class="container">
+    <h2 class="mt-2">Family Tree Builder</h2>
+    <hr>
+    <h5>Nie jesteś zalogowany!</h5>
+    <a href="{% url 'login' %}" class="btn btn-primary active" role="button" aria-pressed="true">Logowanie</a>
+    <a href="{% url 'signup' %}" class="btn btn-primary active" role="button" aria-pressed="true">Rejestracja</a>
+</div>
 {% endif %}
 {% endblock %}

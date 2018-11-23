@@ -7,22 +7,22 @@ from django.utils import timezone
 class CustomUser(AbstractUser):
     username = models.CharField(max_length=40, unique=True, verbose_name="Login")
     email = models.EmailField()
-    last_update = models.DateTimeField(null=False, default=timezone.now)
+    last_update = models.DateTimeField(auto_now=True)
 
     def update(self):
         self.last_update = timezone.now
         self.save()
 
     def __str__(self):
-        return self.email
+        return self.username
 
 
 class Family(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, help_text='Nazwa drzewa', null=True)
+    name = models.CharField(max_length=200, help_text='Nazwa drzewa', blank=True, null=True)
     size = models.PositiveSmallIntegerField(default=0)
-    photo_path = models.FilePathField(path='/home/familytreebuilder/', recursive=True, null=True)
-    last_update = models.DateTimeField(null=False, default=timezone.now)
+    photo = models.ImageField(upload_to='pictures', null=True)
+    last_update = models.DateTimeField(auto_now=True)
 
     def update(self):
         self.last_update = timezone.now
@@ -37,7 +37,7 @@ class Family(models.Model):
         self.update()
 
     def set_photo_path(self, new_photo_path):
-        self.photo_path=new_photo_path
+        self.photo = new_photo_path
         self.update()
 
     def __str__(self):
@@ -46,14 +46,14 @@ class Family(models.Model):
 
 class Member(models.Model):
     family = models.ForeignKey(Family, on_delete=models.CASCADE)
-    name = models.CharField(max_length=40, help_text='Imiona', null=True)
-    last_name = models.CharField(max_length=40, help_text='Nazwisko', null=True)
-    birth_date = models.DateField(help_text='Datę narodzin', null=True)
-    death_date = models.DateField(help_text='Datę śmierci', null=True)
-    alive = models.BooleanField(help_text='Nieżyje?', null=True)
-    phone_number = models.CharField(max_length=15, help_text='Numer telefonu', null=True)
-    photo_path = models.FilePathField(path='/home/familytreebuilder/', recursive=True, null=True)
-    last_update = models.DateTimeField(null=False, default=timezone.now)
+    name = models.CharField(max_length=40, help_text='Imiona')
+    last_name = models.CharField(max_length=40, help_text='Nazwisko')
+    birth_date = models.DateField(help_text='Datę narodzin', blank=True, null=True)
+    death_date = models.DateField(help_text='Datę śmierci', blank=True, null=True)
+    alive = models.BooleanField(help_text='Nieżyje?')
+    phone_number = models.CharField(max_length=15, help_text='Numer telefonu', blank=True, null=True)
+    photo = models.ImageField(upload_to='pictures', null=True)
+    last_update = models.DateTimeField(auto_now=True)
 
     def update(self):
         self.last_update = timezone.now
@@ -76,7 +76,7 @@ class Member(models.Model):
         self.update()
 
     def set_alive(self, is_alive):
-        self.alive=is_alive
+        self.alive = is_alive
         self.update()
 
     def set_phone_number(self, new_phone_number):
@@ -84,7 +84,7 @@ class Member(models.Model):
         self.update()
 
     def set_photo_path(self, new_photo_path):
-        self.photo_path = new_photo_path
+        self.photo = new_photo_path
         self.update()
 
     def __str__(self):
@@ -93,10 +93,10 @@ class Member(models.Model):
 
 class Address(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    address = models.CharField(max_length=50, help_text='Adres', null=True)
-    zip_code = models.CharField(max_length=10,  help_text='Kod pocztowy', null=True)
-    city = models.CharField(max_length=40, help_text='Miasto', null=True)
-    last_update = models.DateTimeField(null=False, default=timezone.now)
+    address = models.CharField(max_length=50, help_text='Adres', blank=True, null=True)
+    zip_code = models.CharField(max_length=10,  help_text='Kod pocztowy', blank=True, null=True)
+    city = models.CharField(max_length=40, help_text='Miasto', blank=True, null=True)
+    last_update = models.DateTimeField(auto_now=True)
 
     def update(self):
         self.last_update = timezone.now
@@ -119,9 +119,9 @@ class Address(models.Model):
 
 class Parent(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    last_update = models.DateTimeField(null=False, default=timezone.now)
+    last_update = models.DateTimeField(auto_now=True)
 
 
 class Spouse(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    last_update = models.DateTimeField(null=False, default=timezone.now)
+    last_update = models.DateTimeField(auto_now=True)
