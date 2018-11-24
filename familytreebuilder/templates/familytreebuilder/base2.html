@@ -1,0 +1,43 @@
+{% extends 'familytreebuilder/base.html' %}
+
+{% load static %}
+
+{% load staticfiles %}
+
+{% block title %}Base2{% endblock %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+
+
+<div class="page-header">
+    <a href="{% url 'home' %}">
+  <img src= "{% static 'images/tree.png' %}"  style="width:60px;">
+    </a>
+    <h2 class="mt-2">Family Tree Builder</h2>
+    <div class="page-header-items">
+        <h5>Witaj {{ user.username }}!</h5>
+        <a href="{% url 'password_reset' %}" class="btn btn-info">
+            <span class="fas fa-cog"></span>
+        </a>
+        <a href="{% url 'logout' %}" class="btn btn-info">
+            <span class="fas fa-power-off"></span>
+        </a>
+    </div>
+</div>
+
+{% block main %}
+{% endblock %}
+
+{% else %}
+<div class="container">
+    <h2 class="mt-2">Family Tree Builder</h2>
+    <hr>
+    <h5>Nie jesteś zalogowany!</h5>
+    <a href="{% url 'login' %}" class="btn btn-primary active" role="button" aria-pressed="true">Logowanie</a>
+    <a href="{% url 'signup' %}" class="btn btn-primary active" role="button" aria-pressed="true">Rejestracja</a>
+</div>
+{% endif %}
+{% endblock %}

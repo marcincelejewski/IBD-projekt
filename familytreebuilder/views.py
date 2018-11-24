@@ -36,5 +36,12 @@ class MemberListView(ListView):
     template_name = 'familytreebuilder/family.html'
     context_object_name = 'member_list'
 
+    def get(self, request, pk, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        self.queryset = Member.objects.filter(family__pk=pk)
+        return super(MemberListView, self).get(self, request, *args, **kwargs)
+
+
 
 

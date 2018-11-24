@@ -1,13 +1,46 @@
-{% extends 'familytreebuilder/base.html' %}
+{% extends 'familytreebuilder/base2.html' %}
 
-{% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}Rodzina{% endblock %}
 
-{% block content %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+{% endblock %}
+
+{% block main %}
 
 <div class="container">
-    <h3>Siema</h3>
+    {% if member_list %}
+    {% for member in member_list %}
+
+    <div class="border">
+        <div class="row">
+
+            <div class="col-sm">
+                {% if member.photo %}
+                <img id="currentPhoto" src={{ member.photo.url }} class="img-rounded"
+                     onerror="this.src = 'static/images/no-img.png'" height="180">
+                {% endif %}
+            </div>
+            <div class="col-sm">
+                <div class="container">
+                    <h1> {{ member }}</h1>
+                    <br>
+                    <h5>Ostatnia modyfikacja: {{ member.last_update }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endfor %}
+
+
+    {% else %}
+    <h4>Tu pokaże się lista drzew stworzonych przez Ciebie!</h4>
+    {% endif %}
 </div>
 
 {% endblock %}
