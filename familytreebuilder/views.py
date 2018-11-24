@@ -1,10 +1,10 @@
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
-from django.shortcuts import render, get_list_or_404
+from django.shortcuts import render, get_list_or_404, redirect
 from django.http import HttpResponse, HttpResponseForbidden
-from .forms import SignUpForm, ImageUploadForm
-from .models import Family
-from .models import Member
+from django.contrib.auth.decorators import login_required
+from .forms import SignUpForm
+from .models import Family, Member
 
 
 # Create your views here.
@@ -15,29 +15,26 @@ class Signup(CreateView):
     template_name = 'familytreebuilder/signup.html'
 
 
+class FamilyListView(ListView):
+    model = Family
+    paginate_by = 10
+    template_name = 'familytreebuilder/home.html'
+    context_object_name = 'family_list'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        return super(FamilyListView, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return Family.objects.filter(user__username=self.request.user.username)
+
+
 class MemberListView(ListView):
     model = Member
+    paginate_by = 50
+    template_name = 'familytreebuilder/family.html'
+    context_object_name = 'member_list'
 
 
-def home(request):
-    if request.user.is_authenticated:
-        family_list = get_list_or_404(Family, user__username=request.user.username)
-        num_family = len(family_list)
-        context = {
-            'num_family': num_family,
-            'family_list': family_list,
-        }
-        return render(request, 'familytreebuilder/home.html', context=context)
-    else:
-        return render(request, 'familytreebuilder/home.html')
 
-
-def upload_pic(request):
-    if request.method == 'POST':
-        form = ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            m = Family.objects.get(pk=request.family_id)
-            m.photo = form.cleaned_data['image']
-            m.save()
-            return HttpResponse('image upload success')
-    return HttpResponseForbidden('allowed only via POST')

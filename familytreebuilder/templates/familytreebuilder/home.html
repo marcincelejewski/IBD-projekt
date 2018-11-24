@@ -29,31 +29,33 @@
 
 
 <div class="container">
-    {% if num_family < 1 %}
-    <h4>Tu pokaże się lista drzew stworzonych przez Ciebie!</h4>
-    {% else %}
+    {% if family_list %}
     {% for family in family_list %}
 
     <div class="border">
         <div class="row">
+
             <div class="col-sm">
                 <img id="currentPhoto" src={{ family.photo.url }} class="img-rounded"
-                     onerror="this.src = 'static/images/no-img.png'" height="200">
-
+                     onerror="this.src = 'static/images/no-img.png'" height="180">
             </div>
             <div class="col-sm">
                 <div class="container">
-                    <h2> {{ family }}</h2>
-                    <h2> {{ family }}</h2>
+                    <h1> {{ family }}</h1>
+                    <br>
+                    <h5>Liczba członków rodziny: {{ family.size }}</h5>
+                    <h5>Ostatnia modyfikacja: {{ family.last_update }}</h5>
+                    <a href="{% url 'show_family' pk=family.pk %}" class="btn btn-primary active" role="button" aria-pressed="true">Edytuj</a>
                 </div>
             </div>
-
-
         </div>
     </div>
 
-
     {% endfor %}
+
+
+    {% else %}
+    <h4>Tu pokaże się lista drzew stworzonych przez Ciebie!</h4>
     {% endif %}
 </div>
 

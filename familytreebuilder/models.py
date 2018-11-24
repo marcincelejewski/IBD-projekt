@@ -19,10 +19,13 @@ class CustomUser(AbstractUser):
 
 class Family(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, help_text='Nazwa drzewa', blank=True, null=True)
+    name = models.CharField(max_length=60, help_text='Nazwa drzewa', blank=True, null=True)
     size = models.PositiveSmallIntegerField(default=0)
     photo = models.ImageField(upload_to='pictures', null=True)
     last_update = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['name']
 
     def update(self):
         self.last_update = timezone.now
