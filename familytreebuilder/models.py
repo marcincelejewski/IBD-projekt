@@ -26,23 +26,7 @@ class Family(models.Model):
         return self.name
 
 
-class Member(models.Model):
-    family = models.ForeignKey(Family, on_delete=models.CASCADE)
-    name = models.CharField(max_length=40, help_text='Imiona')
-    last_name = models.CharField(max_length=40, help_text='Nazwisko')
-    birth_date = models.DateField(help_text='Datę narodzin', blank=True, null=True)
-    death_date = models.DateField(help_text='Datę śmierci', blank=True, null=True)
-    alive = models.BooleanField(help_text='Nieżyje?')
-    phone_number = models.CharField(max_length=15, help_text='Numer telefonu', blank=True, null=True)
-    photo = models.ImageField(upload_to='pictures', null=True)
-    last_update = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name + ' ' + self.last_name
-
-
 class Address(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
     address = models.CharField(max_length=50, help_text='Adres', blank=True, null=True)
     zip_code = models.CharField(max_length=10,  help_text='Kod pocztowy', blank=True, null=True)
     city = models.CharField(max_length=40, help_text='Miasto', blank=True, null=True)
@@ -50,6 +34,27 @@ class Address(models.Model):
 
     def __str__(self):
         return "{} {} {}".format(self.address, self.zip_code, self.city)
+
+
+class Member(models.Model):
+    family = models.ForeignKey(Family, on_delete=models.CASCADE)
+    name = models.CharField(max_length=40, verbose_name='Imiona')
+    last_name = models.CharField(max_length=40, verbose_name='Nazwisko')
+    address = models.OneToOneField(
+        Address,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+    birth_date = models.DateField(verbose_name='Data narodzin', blank=True, null=True)
+    death_date = models.DateField(verbose_name='Data śmierci', blank=True, null=True)
+    alive = models.BooleanField(verbose_name='Nieżyje?')
+    phone_number = models.CharField(max_length=15, verbose_name='Numer telefonu', blank=True, null=True)
+    photo = models.ImageField(upload_to='pictures', null=True)
+    last_update = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name + ' ' + self.last_name
 
 
 class Parent(models.Model):

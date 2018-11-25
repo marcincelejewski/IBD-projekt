@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import Signup, FamilyListView, MemberListView
+from .views import Signup, FamilyListView, MemberListView, MemberEditView
 
 
 urlpatterns = [
@@ -7,6 +7,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('', FamilyListView.as_view(), name='home'),
     path('family/<int:pk>/', MemberListView.as_view(), name='show_family'),
+    path('member/<int:pk>/', MemberEditView.as_view(), name='member'),
 
 ]
 

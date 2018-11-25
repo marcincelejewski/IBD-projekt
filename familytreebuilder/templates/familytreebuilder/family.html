@@ -22,14 +22,14 @@
             <div class="col-sm">
                 {% if member.photo %}
                 <img id="currentPhoto" src={{ member.photo.url }} class="img-rounded"
-                     onerror="this.src = 'static/images/no-img.png'" height="180">
+                     onerror="this.src = 'static/images/no-img.png'" height="120">
                 {% endif %}
             </div>
             <div class="col-sm">
                 <div class="container">
                     <h1> {{ member }}</h1>
                     <br>
-                    <h5>Ostatnia modyfikacja: {{ member.last_update }}</h5>
+                    <a href="{% url 'member' pk=member.pk %}" class="btn btn-primary active" role="button" aria-pressed="true">Edytuj</a>
                 </div>
             </div>
         </div>
