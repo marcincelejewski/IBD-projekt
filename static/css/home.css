@@ -38,3 +38,12 @@ img {
     border-radius: 5px;
     border: 1px solid #ddd;
 }
+
+#start {
+margin-bottom: 25px;
+text-align:center;
+margin-top: 25px;
+}
+h4 {
+text-align:center;
+}

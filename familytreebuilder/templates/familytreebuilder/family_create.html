@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 
 
-{% block title %}Edytuj{% endblock %}
+{% block title %}Stwórz nowe drzewo{% endblock %}
 
 {% block script %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
@@ -17,10 +17,10 @@
 
 <div class="container">
     <form method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-success">Save person</button>
-  </form>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Stwórz drzewo</button>
+    </form>
 </div>
 
 {% endblock %}
