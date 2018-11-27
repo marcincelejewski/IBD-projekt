@@ -2,10 +2,10 @@
 
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Wybierz członka rodziny{% endblock %}
 
 {% block script %}
-<link rel="stylesheet" href="{%  static 'css/home.css' %}">
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
       integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 {% endblock %}
@@ -13,21 +13,16 @@
 {% block main %}
 
 <div class="container">
-    <div id="start">
-        <a href="{% url 'family_create' %}" class="btn btn-lg btn-primary active" role="button"
-           aria-pressed="true">Stwórz nowe drzewo</a>
-    </div>
-    {% if family_list %}
-    {% for family in family_list %}
     <div class="row justify-content-center">
         <div class="col-7">
+            {% if member_list %}
+            {% for member in member_list %}
+
             <div class="border">
-
                 <div class="row">
-
                     <div class="col-md-auto">
-                        {% if family.photo %}
-                        <img id="currentPhoto" src={{ family.photo.url }} class="img-rounded"
+                        {% if member.photo %}
+                        <img id="currentPhoto" src={{ member.photo.url }} class="img-rounded"
                              onerror="this.src = 'static/images/no-img.png'" height="150">
                         {% else %}
                         <img src="{% static 'images/no-img.png' %}" class="img-rounded" height="150">
@@ -35,24 +30,20 @@
                     </div>
                     <div class="col-md-auto">
                         <div class="container">
-                            <h1> {{ family }}</h1>
-                            <br>
-                            <h5>Liczba członków rodziny: {{ family.size }}</h5>
-                            <a href="{% url 'family_show' family_pk=family.pk %}" class="btn btn-primary active"
-                               role="button" aria-pressed="true">Przejdź do drzewa</a>
+                            <h1> {{ member }}</h1>
+                            <h5> Pokolenie: {{ member.generation }}</h5>
+                            <a href="{% url 'make_relation' member_pk=member_pk member_dest_pk=member.pk closest=closest %}" class="btn btn-primary active" role="button"
+                            >Wybierz</a>
                         </div>
                     </div>
                 </div>
             </div>
+
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 
-
-    {% endfor %}
-
-    {% else %}
-    <h4>Aby rozpocząć budowę swojego pierwszego drzewa naciśnij powyższy przycisk!</h4>
-    {% endif %}
 </div>
 
 {% endblock %}

@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Rodzina{% endblock %}
+{% block title %}Najbliższa Rodzina{% endblock %}
 
 {% block script %}
 <link href="{% static 'css/home.css' %}" rel="stylesheet">
@@ -13,6 +13,26 @@
 {% block main %}
 
 <div class="container">
+    <div id="start">
+        <p>
+            {% if 'parents' in closest %}
+            <a href="{% url 'member_create' member_pk=member_pk closest=closest %}"
+               class="btn btn-lg btn-primary active" role="button"
+               aria-pressed="true">Dodaj rodzica</a>
+            {% elif 'spouses' in closest %}
+            <a href="{% url 'member_create' member_pk=member_pk closest=closest %}"
+               class="btn btn-lg btn-primary active" role="button"
+               aria-pressed="true">Dodaj małżonka</a>
+            {% elif 'children' in closest %}
+            <a href="{% url 'member_create' member_pk=member_pk closest=closest %}"
+               class="btn btn-lg btn-primary active" role="button"
+               aria-pressed="true">Dodaj dziecko</a>
+            {% endif %}
+            <a href="{% url 'create_relation' member_pk=member_pk closest=closest %}"
+               class="btn btn-lg btn-primary active" role="button">Dodaj z listy</a>
+        </p>
+
+    </div>
     <div class="row justify-content-center">
         <div class="col-7">
             {% if member_list %}
@@ -32,12 +52,8 @@
                         <div class="container">
                             <h1> {{ member }}</h1>
                             <h5> Pokolenie: {{ member.generation }}</h5>
-                            <h5>
-                                <a href="{% url 'closest_family' closest='parents' member_pk=member.pk %}">Rodzice</a>
-                                <a href="{% url 'closest_family' closest='spouses' member_pk=member.pk %}">Małżonkowie</a>
-                                <a href="{% url 'closest_family' closest='children' member_pk=member.pk %}">Dzieci</a>
-                            </h5>
-                            <a href="{% url 'member_edit' pk=member.pk %}" class="btn btn-primary active" role="button"
+                            <a href="{% url 'member_edit' pk=member.pk %}" class="btn btn-primary active"
+                               role="button"
                             >Edytuj</a>
                         </div>
                     </div>
@@ -46,12 +62,6 @@
 
             {% endfor %}
 
-            {% else %}
-            <div id="start">
-                <a href="{% url 'member_create' member_pk=family_pk closest='new'  %}" class="btn btn-lg btn-primary active"
-                   role="button"
-                   aria-pressed="true">Dodaj pierwszego członka rodziny</a>
-            </div>
             {% endif %}
         </div>
     </div>

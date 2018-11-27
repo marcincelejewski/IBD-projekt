@@ -2,10 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import SignUpForm, CustomUserChangeForm
+from .models import Address
 from .models import CustomUser
 from .models import Family
 from .models import Member
-from .models import Address
 
 
 class CustomUserAdmin(UserAdmin):

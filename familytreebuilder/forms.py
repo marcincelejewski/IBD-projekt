@@ -18,11 +18,6 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('username', 'email')
 
 
-class ImageUploadForm(forms.Form):
-    """Image upload form."""
-    image = forms.ImageField()
-
-
 class MemberCreateForm(forms.ModelForm):
     address_ = forms.CharField(max_length=50, label='Adres', required=False)
     zip_code = forms.CharField(max_length=10,  label='Kod pocztowy', required=False)
@@ -33,13 +28,15 @@ class MemberCreateForm(forms.ModelForm):
         fields = [
             'name',
             'last_name',
+            'photo',
             'address_',
             'zip_code',
             'city',
             'birth_date',
             'death_date',
-            'dead',
+            'alive',
             'phone_number']
+
 
 
 

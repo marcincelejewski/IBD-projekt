@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-
 # Create your models here.
 
 
@@ -18,7 +17,7 @@ class Family(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=60, verbose_name='Nazwa drzewa')
     size = models.PositiveSmallIntegerField(default=0)
-    photo = models.ImageField(upload_to='pictures', null=True, blank=True)
+    photo = models.ImageField(upload_to='pictures', verbose_name='Wybierz zdjęcie', null=True, blank=True)
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -46,6 +45,8 @@ class Member(models.Model):
     family = models.ForeignKey(Family, on_delete=models.CASCADE)
     name = models.CharField(max_length=40, verbose_name='Imiona')
     last_name = models.CharField(max_length=40, verbose_name='Nazwisko')
+    parents = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='children')
+    spouses = models.ManyToManyField('self', blank=True)
     address = models.OneToOneField(
         Address,
         on_delete=models.CASCADE,
@@ -54,20 +55,17 @@ class Member(models.Model):
     )
     birth_date = models.DateField(verbose_name='Data narodzin', blank=True, null=True)
     death_date = models.DateField(verbose_name='Data śmierci', blank=True, null=True)
-    dead = models.BooleanField(verbose_name='Nieżyje?', blank=True, null=True)
+    alive = models.BooleanField(verbose_name='Żyje?', blank=True, null=True)
     phone_number = models.CharField(max_length=15, verbose_name='Numer telefonu', blank=True, null=True)
-    photo = models.ImageField(upload_to='pictures', blank=True, null=True)
+    photo = models.ImageField(upload_to='pictures', verbose_name='Wybierz zdjęcie', blank=True, null=True)
+    generation = models.SmallIntegerField(null=False, default=1)
     last_update = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['generation']
 
     def __str__(self):
         return self.name + ' ' + self.last_name
 
 
-class Parent(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    last_update = models.DateTimeField(auto_now=True)
 
-
-class Spouse(models.Model):
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    last_update = models.DateTimeField(auto_now=True)
