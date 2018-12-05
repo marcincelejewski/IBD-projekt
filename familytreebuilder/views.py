@@ -1,5 +1,6 @@
+from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, TemplateView
 from django.views.generic.edit import UpdateView
@@ -24,6 +25,10 @@ class FamilyListView(ListView):
 
     def get_queryset(self):
         return Family.objects.filter(user__username=self.request.user.username)
+
+
+def RegulaminView(request):
+    return render(request, 'familytreebuilder/regulamin.html')
 
 
 class FamilyCreateView(CreateView):

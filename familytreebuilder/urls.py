@@ -2,12 +2,13 @@ from django.conf.urls import url
 from django.urls import path, include
 
 from .views import Signup, FamilyListView, MemberListView, MemberEditView, MemberCreateView, FamilyCreateView, \
-    ClosestFamilyListView, CreateRelationListView, MakeRelationView
+    ClosestFamilyListView, CreateRelationListView, MakeRelationView, RegulaminView
 
 urlpatterns = [
     path('signup/', Signup.as_view(), name='signup'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', FamilyListView.as_view(), name='home'),
+    path('regulamin', RegulaminView, name='show_regulamin'),
     path('family/<int:family_pk>/', MemberListView.as_view(), name='family_show'),
     path('member/<int:pk>/', MemberEditView.as_view(), name='member_edit'),
     path('family/create/', FamilyCreateView.as_view(), name='family_create'),
@@ -18,5 +19,5 @@ urlpatterns = [
     url(r'^family/create/relation/(?P<member_pk>(\d+))/(?P<closest>(\w+))/$', CreateRelationListView.as_view(),
         name='create_relation'),
     url(r'^family/make/relation/(?P<member_pk>(\d+))/(?P<member_dest_pk>(\d+))/(?P<closest>(\w+))/$',
-        MakeRelationView.as_view(),name='make_relation')
+        MakeRelationView.as_view(), name='make_relation')
 ]
