@@ -1,12 +1,16 @@
 *** Settings ***
 Documentation     Testowanie aplikacji na Webówke
 Library           SeleniumLibrary
+Library           OperatingSystem
+Library           String
+Library           DateTime
+
 
 *** Variables ***
 ${LOGIN URL}    http://127.0.0.1:8000/
 ${BROWSER}      Chrome
-${USER NAME}    testowy_ziom
-${PASSWORD}     skomplikowanehaslo_123
+${USER NAME}    marcin16
+${PASSWORD}     12345trewq
 ${MAIL}         marcin@jest.fajny
 ${TREE NAME}    DrzewoTestowe
 ${MEMBER NAME}  Wojtek
@@ -16,7 +20,7 @@ ${TREE PHOTO}   C:\\Users\\marcin.DESKTOP-8O3KFDQ\\Desktop\\głupoty\\drzewo.jpg
 
 ${MEMBER NAME2}  Kazimierz
 ${MEMBER SURNAME2}   Górski
-${MEMBER PHOTO2}     C:\\Users\\marcin.DESKTOP-8O3KFDQ\\Desktop\\głupoty\\kat.jpg
+${MEMBER PHOTO2}     C:\\Users\\marcin.DESKTOP-8O3KFDQ\\Desktop\\głupoty\\pwr.jpg
 
 
 *** Test Cases ***
@@ -34,16 +38,38 @@ ${MEMBER PHOTO2}     C:\\Users\\marcin.DESKTOP-8O3KFDQ\\Desktop\\głupoty\\kat.j
 #    Create New Tree  ${TREE NAME}   ${TREE PHOTO}
 #    Close Browser
 
-Adding Member To Existing Empty Family Tree
-    Open Browser To Login Page
-    Login  ${USER NAME}  ${PASSWORD}
-    Enter Tree Editing
-    ${STATUS}  Run Keyword And Return Status  Element Should Be Enabled  xpath: //*[contains(text(), "Dodaj pierwszego członka rodziny")]
-    Run Keyword If  ${STATUS}   Add New Family Member       ${MEMBER NAME}      ${MEMBER SURNAME}       ${MEMBER PHOTO}
-    run keyword unless  ${STATUS}    Add Secound Family Member   ${MEMBER NAME2}     ${MEMBER SURNAME2}      ${MEMBER PHOTO2}
+#Adding Member To Existing Empty Family Tree
+#    Open Browser To Login Page
+#    : FOR   ${INDEX}    IN RANGE    0   3
+#    \   ${start} =      Get Current Date
+#    \   Login  ${USER NAME}  ${PASSWORD}
+#    \   Enter Tree Editing
+#    \   ${STATUS}  Run Keyword And Return Status  Element Should Be Enabled  xpath: //*[contains(text(), "Dodaj pierwszego członka rodziny")]
+#    \   Run Keyword If  ${STATUS}   Add New Family Member       ${MEMBER NAME}      ${MEMBER SURNAME}       ${MEMBER PHOTO}
+#    \   run keyword unless  ${STATUS}    Add Secound Family Member   ${MEMBER NAME2}     ${MEMBER SURNAME2}      ${MEMBER PHOTO2}
+#    \   Logout
+#    \   ${stop} =       Get Current Date
+#    \   ${diff} =       Subtract Date From Date     ${stop}     ${start}
+#    \   write_variable_in_file  ${diff}
+#    Log  Done
+#    Close Browser
 
-    Close Browser
+
+Measure Tree Editing
+    Open Browser To Login Page
+    : FOR   ${INDEX}    IN RANGE    0  20
+    \   ${start} =      Get Current Date
+    \   Login  ${USER NAME}  ${PASSWORD}
+    \   Enter Tree Editing
+    \   ${stop} =       Get Current Date
+    \   ${diff} =       Subtract Date From Date     ${stop}     ${start}
+    \   write_variable_in_file  ${diff}
+    \   Logout
+    \   Sleep   200ms
+
     Log  Done
+    Close Browser
+
 
 *** Keywords ***
 Open Browser To Login Page
@@ -74,14 +100,14 @@ Go Back To Home Page
 
 Login
     [Arguments]     ${username}     ${password}
-    Click Element        xpath: //*[contains(text(), "Logowanie")]
+    Click Element   xpath: //*[contains(text(), "Logowanie")]
     Input Text      id:id_username  ${username}
     Input Text      id:id_password     ${password}
     Click Button    xpath: //*[contains(text(), "Zaloguj")]
 
 Create New Tree
     [Arguments]     ${treename}     ${treeimage}
-    Click Element        xpath: //*[contains(text(), "Stwórz nowe drzewo")]
+    Click Element   xpath: //*[contains(text(), "Stwórz nowe drzewo")]
     Input Text      id:id_name  ${treename}
     Choose File     id:id_photo  ${treeimage}
     Click Button    xpath: //*[contains(text(), "Stwórz drzewo")]
@@ -107,3 +133,12 @@ Add Secound Family Member
     Input Text      id:id_last_name     ${surname}
     Click Button    xpath: //*[contains(text(), "Dodaj członka rodziny")]
 
+Logout
+    Click Element   xpath: //html/body/div[1]/div/a[2]
+    Go Back
+
+write_variable_in_file
+  [Arguments]  ${variable}
+  ${string}=    Convert To String  ${variable}
+  append to file  ${EXECDIR}/file_with_variable.txt     \n
+  append to file  ${EXECDIR}/file_with_variable.txt     ${string}

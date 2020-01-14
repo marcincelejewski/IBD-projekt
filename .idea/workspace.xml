@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab028bf8-9380-4377-a6ef-1894d068537a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/test.robot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/FamilyTreeBuilder.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FamilyTreeBuilder.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/familytreebuilder/templates/familytreebuilder/base2.html" beforeDir="false" afterPath="$PROJECT_DIR$/familytreebuilder/templates/familytreebuilder/base2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/familytreebuilder/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/familytreebuilder/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test.robot" beforeDir="false" afterPath="$PROJECT_DIR$/tests/my_test.robot" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +123,19 @@
       <option name="presentableId" value="Default" />
       <updated>1542708016819</updated>
     </task>
+    <task id="LOCAL-00001" summary="Dodano testy w selenium i robocie">
+      <created>1576625127591</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1576625127591</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Dodano testy w selenium i robocie" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodano testy w selenium i robocie" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1576604868757">
@@ -137,29 +146,46 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="719" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1576610985052" />
-    <state width="1899" height="281" key="GridCell.Tab.0.bottom" timestamp="1576623444205">
+    <state x="614" y="114" key="CommitChangelistDialog2" timestamp="1576625126498">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1576623444205" />
-    <state width="1899" height="281" key="GridCell.Tab.0.center" timestamp="1576623444205">
+    <state x="614" y="114" key="CommitChangelistDialog2/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1576625126498" />
+    <state width="941" height="201" key="GridCell.Tab.0.bottom" timestamp="1578499446009">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1576623444205" />
-    <state width="1899" height="281" key="GridCell.Tab.0.left" timestamp="1576623444205">
+    <state width="751" height="208" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1576678761288" />
+    <state width="941" height="201" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1578499446009" />
+    <state width="941" height="201" key="GridCell.Tab.0.center" timestamp="1578499446009">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1576623444205" />
-    <state width="1899" height="281" key="GridCell.Tab.0.right" timestamp="1576623444205">
+    <state width="751" height="208" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1576678761288" />
+    <state width="941" height="201" key="GridCell.Tab.0.center/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1578499446009" />
+    <state width="941" height="201" key="GridCell.Tab.0.left" timestamp="1578499446009">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="281" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1576623444205" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1576610866583">
+    <state width="751" height="208" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1576678761288" />
+    <state width="941" height="201" key="GridCell.Tab.0.left/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1578499446009" />
+    <state width="941" height="201" key="GridCell.Tab.0.right" timestamp="1578499446009">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1576610866583" />
-    <state x="656" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1576611052272">
+    <state width="751" height="208" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1576678761288" />
+    <state width="941" height="201" key="GridCell.Tab.0.right/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1578499446009" />
+    <state x="349" y="147" key="IDE.errors.dialog" timestamp="1576678524655">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="349" y="147" key="IDE.errors.dialog/0.0.1536.824@0.0.1536.824" timestamp="1576678524655" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1579023135475">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1576611052272" />
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1579023135475" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1576625146952">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1576625146952" />
+    <state x="656" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1578424501606">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="525" y="272" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1576678497860" />
+    <state x="656" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1536.824@0.0.1920.1040" timestamp="1578424501606" />
   </component>
 </project>

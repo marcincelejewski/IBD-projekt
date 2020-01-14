@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'familytreebuilder',
     'crispy_forms',
+    'image_optimizer',
 ]
-
+OPTIMIZED_IMAGE_METHOD = 'pillow'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
